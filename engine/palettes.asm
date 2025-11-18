@@ -656,7 +656,7 @@ CopyGfxToSuperNintendoVRAM:
 	add hl, de
 	dec c
 	jr nz, .loop
-	ld a, $e3
+	ld a, $c7
 	ld [rLCDC], a
 	pop hl
 	call SendSGBPacket
@@ -940,12 +940,12 @@ TransferPalColorLCDEnabled:
 ; In case we're already in H-blank or V-blank, wait for it to end. This is a
 ; precaution so that the transfer doesn't extend past the blanking period.
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr z, TransferPalColorLCDEnabled	;repeat if still in h-blank or v-blank
 ; Wait for H-blank or V-blank to begin.
 .notInBlankingPeriod
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .notInBlankingPeriod
 ; fall through
 TransferPalColorLCDDisabled:

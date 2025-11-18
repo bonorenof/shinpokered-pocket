@@ -31,7 +31,7 @@ CopyData::
 ;	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
 .waitVRAM
 	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
-	and %10				;4 cycles
+	and %01000000				;4 cycles
 	jr nz, .waitVRAM	;6 cycles to pass or 10 to loop
 ; Copy bc bytes from hl to de.
 	ld a, [hli]			;4 cycles

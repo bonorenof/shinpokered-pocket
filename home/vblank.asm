@@ -117,7 +117,7 @@ NOT_VBLANKED EQU 1
 	ld [wDelayFrameBank], a
 	
 	ld a, [rLCDC]
-	bit 7, a
+	bit 0, a
 	jr z, .lcd_off
 .halt
 	halt

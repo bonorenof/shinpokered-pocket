@@ -1,12 +1,12 @@
 roms := \
-	pokered.gbc \
-	pokeblue.gbc \
-	pokegreen.gbc \
-	pokered_origback.gbc \
-	pokeblue_origback.gbc \
-	pokebluejp.gbc \
-	pokeredjp.gbc \
-	pokebluejp_origback.gbc
+	pokered.pocket \
+	pokeblue.pocket \
+	pokegreen.pocket \
+	pokered_origback.pocket \
+	pokeblue_origback.pocket \
+	pokebluejp.pocket \
+	pokeredjp.pocket \
+	pokebluejp_origback.pocket
 
 rom_obj := \
 	audio.o \
@@ -60,7 +60,7 @@ clean: tidy
 	find . \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.pic' \) -exec rm {} +
 
 tidy:
-	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym) rgbdscheck.o 
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.pocket=.map) $(roms:.pocket=.sym) rgbdscheck.o
 	$(MAKE) clean -C tools/
 
 tools:
@@ -153,16 +153,16 @@ endif
 %.asm: ;
 
 #gbcnote - use cjsv to compile as GBC+DMG rom
-pokered_opt  			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
-pokeblue_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokegreen_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON GREEN"
-pokered_origback_opt 	= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
-pokeblue_origback_opt 	= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokebluejp_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokeredjp_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
-pokebluejp_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
+pokered_opt  			= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON RED" -f hg
+pokeblue_opt 			= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON BLUE" -f hg
+pokegreen_opt 			= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON GREEN" -f hg
+pokered_origback_opt 	= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON RED" -f hg
+pokeblue_origback_opt 	= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON BLUE" -f hg
+pokebluejp_opt 			= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON BLUE" -f hg
+pokeredjp_opt 			= -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON RED" -f hg
+pokebluejp_origback_opt = -cjs -k 01 -l 0x33 -m 0x1b -p 0 -r 03 -t "POKEMON BLUE" -f hg
 
-%.gbc: $$(%_obj) layout.link
+%.pocket: $$(%_obj) layout.link
 	$(RGBLINK) -d -m $*.map -n $*.sym -l layout.link -o $@ $(filter %.o,$^)
 	$(RGBFIX) $($*_opt) $@
 

@@ -694,12 +694,12 @@ SetAttackAnimPal_otheranim:
 .wait1
 	;wait for current blank period to end
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr z, .wait1
 	;out of blank period now
 .wait2
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .wait2
 	;back in blank period now
 .lcd_dis	

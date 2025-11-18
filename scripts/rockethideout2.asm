@@ -438,7 +438,7 @@ CopySpinnerTiles:
 ;For more info about timing the HBLANK, see https://gbdev.io/guides/lyc_timing.html
 .waitVRAM
 	ldh a, [rSTAT]		;read from stat register to get the mode
-	and %10				
+	and %01000000				
 	jr nz, .waitVRAM	
 	ld [hl], e
 	inc l

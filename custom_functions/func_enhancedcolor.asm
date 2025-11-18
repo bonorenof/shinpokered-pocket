@@ -1055,7 +1055,7 @@ GBCEnhancedRedrawRowOrColumn:
 
 .waitVRAMC1
 	ldh a, [rSTAT]		
-	and %10				
+	and %01000000				
 	jr nz, .waitVRAMC1	
 
 	ld a, [hli]
@@ -1064,7 +1064,7 @@ GBCEnhancedRedrawRowOrColumn:
 
 .waitVRAMC2
 	ldh a, [rSTAT]		
-	and %10				
+	and %01000000				
 	jr nz, .waitVRAMC2	
 
 	ld a, [hl]
@@ -1147,7 +1147,7 @@ GBCEnhancedRedrawRowOrColumn:
 .loopRow
 .waitVRAMR1
 	ldh a, [rSTAT]		
-	and %10				
+	and %01000000			
 	jr nz, .waitVRAMR1	
 
 	ld a, [hli]
@@ -1156,7 +1156,7 @@ GBCEnhancedRedrawRowOrColumn:
 
 .waitVRAMR2
 	ldh a, [rSTAT]		
-	and %10				
+	and %01000000			
 	jr nz, .waitVRAMR2
 
 	ld a, [hli]
@@ -1424,7 +1424,7 @@ UpdateEnhancedGBCPal_BGP:
 ;since the background is getting updates, wait until vblank starts
 ;this way the scanlines don't update halfway down the screen
 	ld a, [rLCDC]
-	bit 7, a
+	bit 0, a
 	jr z, .next
 .wait
 	ld a, [rLY]
@@ -1591,18 +1591,18 @@ GBCBufferFastTransfer_BGP:
 
 .loop
 	ld a, [rLCDC]
-	bit 7, a
+	bit 0, a
 	jr z, .next
 .wait
 ; In case we're already in H-blank or V-blank, wait for it to end. This is a
 ; precaution so that the transfer doesn't extend past the blanking period.
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr z, .wait	;repeat if still in h-blank or v-blank
 ; Wait for H-blank or V-blank to begin.
 .notInBlankingPeriod
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .notInBlankingPeriod
 	
 .next
@@ -1641,18 +1641,18 @@ GBCBufferFastTransfer_OBP0:
 
 .loop
 	ld a, [rLCDC]
-	bit 7, a
+	bit 0, a
 	jr z, .next
 .wait
 ; In case we're already in H-blank or V-blank, wait for it to end. This is a
 ; precaution so that the transfer doesn't extend past the blanking period.
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr z, .wait	;repeat if still in h-blank or v-blank
 ; Wait for H-blank or V-blank to begin.
 .notInBlankingPeriod
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .notInBlankingPeriod
 	
 .next
@@ -1691,18 +1691,18 @@ GBCBufferFastTransfer_OBP1:
 
 .loop
 	ld a, [rLCDC]
-	bit 7, a
+	bit 0, a
 	jr z, .next
 .wait
 ; In case we're already in H-blank or V-blank, wait for it to end. This is a
 ; precaution so that the transfer doesn't extend past the blanking period.
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr z, .wait	;repeat if still in h-blank or v-blank
 ; Wait for H-blank or V-blank to begin.
 .notInBlankingPeriod
 	ld a, [rSTAT]
-	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000 ; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .notInBlankingPeriod
 	
 .next

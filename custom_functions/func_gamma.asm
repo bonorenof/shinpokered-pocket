@@ -346,7 +346,7 @@ WriteColorGBC:
 	jr c, .write_DI		;if enabled right now, jump to disable it while doing the read
 .waitVRAM
 	ldh a, [rSTAT]		
-	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM
 	;we are now in a viable mode
 	ld a, e
@@ -358,7 +358,7 @@ WriteColorGBC:
 	;wait for mode 0 or 1 (HBLANK or VBLANK)
 .waitVRAM2
 	ldh a, [rSTAT]		
-	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	and %01000000		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM2
 	;we are now in a viable mode
 	ld a, e

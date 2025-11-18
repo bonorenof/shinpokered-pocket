@@ -42,8 +42,8 @@ EmuCheckWriteMode3:
 	di
 .waitMode3_loop
 	ldh a, [rSTAT]		;read from stat register to get the mode
-	and %11				;4 cycles
-	cp 3				;4 cycles
+	and %11000000				;4 cycles
+	cp $C0				;4 cycles
 	jr nz, .waitMode3_loop	;6 cycles to pass or 10 to loop
 	ld a, d
 	ld [hli], a
@@ -73,7 +73,7 @@ EmuCheck_OAM_Timing:
 	
 	ld a, [rSTAT]
 	push af
-	ld a, %00100000	;enable Mode 2 OAM interrupt for LCDC
+	ld a, %00000100	;enable Mode 2 OAM interrupt for LCDC
 	ldh [rSTAT], a
 	
 	ld a, [rIE]

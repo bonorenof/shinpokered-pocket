@@ -157,7 +157,7 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 ;.waitMode3
 ;	ldh a, [rSTAT]		;read from stat register to get the mode
 ;	and %11				;4 cycles
-;	cp 3				;4 cycles
+;	cp 4				;4 cycles
 ;	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
 ;.waitVRAM
 ;	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
@@ -7737,8 +7737,8 @@ LoadHudAndHpBarAndStatusTilePatterns:
 
 LoadHudTilePatterns:
 	ld a, [rLCDC]
-	add a ; is LCD disabled?
-	jr c, .lcdEnabled
+	and rLCDC_ENABLE_MASK ; is LCD enable?
+	jr nz, .lcdEnabled ; jump is LCD disabled
 .lcdDisabled
 	ld hl, BattleHudTiles1
 	ld de, vChars2 + $6d0

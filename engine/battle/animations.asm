@@ -2188,7 +2188,7 @@ AnimationWavyScreen:
 
 WavyScreen_SetSCX:
 	ld a, [rSTAT]
-	and $3 ; is it H-blank?
+	and $c0 ; is it H-blank?
 	jr nz, WavyScreen_SetSCX ; wait until it's H-blank
 	ld a, [hl]
 	ld [rSCX], a
