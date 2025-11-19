@@ -1,3 +1,7 @@
+# Fork Features
+Simple conversion of the source code to compile .pocket ROMs compatible with analogue pocket GB Studio games.
+Was not thoroughly tested.
+
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
 Version 1.25.0
